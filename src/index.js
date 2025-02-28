@@ -34,8 +34,8 @@ app.use((err, req, res, next) => {
 
 
 
+connectDB();
 
 app.listen(PORT, () => {
-    connectDB();
     console.log(`Server is running Success on PORT:${PORT}`)
 })
