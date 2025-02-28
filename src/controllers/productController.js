@@ -1,4 +1,4 @@
-import Product from '../models/product.js';
+import Products from '../models/product.js';
 
 export const searchProducts = async (req, res) => {
     const { query, page = 1 } = req.query;
@@ -6,23 +6,25 @@ export const searchProducts = async (req, res) => {
     const skip = (page - 1) * limit;
 
     try {
-        console.log("⭐ Incoming Query:", req.query);
+        console.log("⭐ Incoming Query::", query);
+        
         const searchQuery = query ? {
             $or: [
                 { title: { $regex: query, $options: 'i' } },
                 { category: { $regex: query, $options: 'i' } },
-                { des: { $regex: query, $options: 'i' } },
+                { description: { $regex: query, $options: 'i' } },
             ]
         } : {};
+        
         console.log('⭐searchQuery', JSON.stringify(searchQuery, null ,2));
 
-        const products = await Product.find(searchQuery)
+        const products = await Products.find(searchQuery)
         .skip(skip)
         .limit(limit)
         .sort({ order: 1 });
         console.log('⭐product', products);
 
-        const totalProducts = await Product.countDocuments(searchQuery);
+        const totalProducts = await Products.countDocuments(searchQuery);
 
         console.log('⭐totalProducts', totalProducts);
 
