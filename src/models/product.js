@@ -12,7 +12,7 @@ const ProductSchema = new mongoose.Schema({
         required: true
 
     },
-    des: String,
+    description: String,
     order: {
         type: Number,
         default: 0
@@ -49,6 +49,6 @@ const ProductSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-const Products = mongoose.model('Products', ProductSchema);
+const Products = mongoose.model('products', ProductSchema);
 
 export default Products;
